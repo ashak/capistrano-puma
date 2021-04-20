@@ -85,7 +85,7 @@ namespace :puma do
       if fetch(:puma_systemctl_user) == :system
         sudo "#{fetch(:puma_systemctl_bin)} reload #{fetch(:puma_service_unit_name)}"
       else
-        execute "#{fetch(:puma_systemctl_bin)}", "--user", "reload", {fetch(:puma_service_unit_name)}
+        execute "#{fetch(:puma_systemctl_bin)}", "--user", "reload", fetch(:puma_service_unit_name)
       end
     end
   end
