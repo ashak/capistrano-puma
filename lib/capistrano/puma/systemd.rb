@@ -3,6 +3,9 @@ module Capistrano
     include PumaCommon
 
     def register_hooks
+      puts "blah"
+      puts fetch(:puma_systemctl_restart_task)
+      puts "blah2"
       after 'deploy:finished', "puma:#{fetch(:puma_systemctl_restart_task)}"
     end
 
