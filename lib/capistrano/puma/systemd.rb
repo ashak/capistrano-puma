@@ -3,7 +3,7 @@ module Capistrano
     include PumaCommon
 
     def register_hooks
-      after 'deploy:finished', 'puma:restart'
+      after 'deploy:finished', "puma:#{fetch(:puma_systemctl_restart_task)}"
     end
 
     def define_tasks
@@ -16,6 +16,8 @@ module Capistrano
       set_if_empty :puma_systemctl_user, :system
       set_if_empty :puma_enable_lingering, -> { fetch(:puma_systemctl_user) != :system }
       set_if_empty :puma_lingering_user, -> { fetch(:user) }
+      set_if_empty :puma_systemctl_restart_task, -> :restart
+      set_if_empty :puma_systemctl_reload_signal, -> 'TSTP'
     end
   end
 end
